@@ -1,8 +1,6 @@
 class Solution {
 public:    
     bool exist(vector<vector<char>>& board, string word) {
-        if (word == "") return false;
-
         int numRows = board.size();
         int numCols = numRows ? board[0].size() : 0;
         
