@@ -15,7 +15,6 @@ public:
                 result += values[s[i]];   
         }
         
-        result += values[s.back()];
-        return result;
+        return result += values[s.back()];
     }
 };
