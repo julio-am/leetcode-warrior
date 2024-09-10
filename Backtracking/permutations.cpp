@@ -52,9 +52,7 @@ class Permuter {
 };
 
 
-
-
-
+--------------------------------------
 
 
 void permute(vector<int> arr, int start, int end) {
@@ -71,3 +69,25 @@ void permute(vector<int> arr, int start, int end) {
   )
 }
 
+------------------------------------
+
+class Solution {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        if (nums.size() == 0) return {{}};
+
+        vector<int> remaining_nums(nums.begin() + 1, nums.end());
+        vector<vector<int>> perms = permute(remaining_nums);
+        vector<vector<int>> result;
+
+        for (auto perm : perms) {
+            for (int i = 0; i <= perm.size(); ++i) {
+                perm.insert(perm.begin()+i, nums[0]);
+                result.push_back(perm);
+                perm.erase(perm.begin()+i);
+            }
+        }
+
+        return result;
+    }
+};
