@@ -10,6 +10,38 @@
  * };
  */
 class Solution {
+
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        if (!root) return {}
+        vector<vector<int>> result;
+
+        queue<TreeNode*> toVisit;
+        toVisit.push(root);
+
+        while (!toVisit.empty()) {
+            vector<int> current;
+            int len = toVisit.size();
+
+            for (int i = 0; i<len; ++i) {
+                current.push_back(toVisit.front()->val);
+
+                if (toVisit.front()->left)  toVisit.push(toVisit.front()->left);
+                if (toVisit.front()->right) toVisit.push(toVisit.front()->right);
+                toVisit.pop();
+            }
+
+            result.push_back(current);
+        }
+
+        return result;
+    }
+    
+
+
+
+
+
+
 public:
     vector<vector<int>> levelOrder(TreeNode* root) {
         vector<vector<int>> result;
