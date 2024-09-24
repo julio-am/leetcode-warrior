@@ -1,32 +1,30 @@
-class Solution {
-public:
-    bool validPalindrome(string s) {
-        int front = 0;
-        int back = s.size()-1;
+//Given a string s, return true if it is a palindrome, otherwise return false.
+//A palindrome is a string that reads the same forward and backward. It is also case-insensitive and ignores all non-alphanumeric characters.
 
-        while (front <= back) {
-            if (s[front] == s[back]) {
-                ++front;
-                --back;
-            }
-            
-            else if (s[front] != s[back]) {
-                return isPalindrome(front+1, back, s) || isPalindrome(front, back-1, s);
-            }
+class Solution {
+
+private:
+    bool palindromeHelper(int l, int r, string& s) {
+        while (l <= r) {
+            if (s[l] != s[r]) return false;
+            ++l;
+            --r;
         }
 
         return true;
     }
 
-    bool isPalindrome(int start, int end, string s) {
-        while (start <= end) {
-            if (s[start] == s[end]) {
-                ++start;
-                --end;
-                continue;
-            }
+public:
+    bool validPalindrome(string s) {
+        bool isDeleted = false;
+        int l = 0, r = s.size()-1;
 
-            return false;
+        while (l <= r) {
+            if (s[l] != s[r]) {
+                return palindromeHelper(l+1, r, s) || palindromeHelper(l, r-1, s);
+            }
+            ++l;
+            --r;
         }
         return true;
     }
