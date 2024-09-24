@@ -12,23 +12,22 @@ public:
     vector<vector<string>> groupStrings(vector<string>& strings) {
         unordered_map<string, vector<string>> groups;
 
-        for (auto str : strings) {
+        for (auto s : strings) {
             string hashCode = "#";
 
-            for (int i = 1; i < str.length(); ++i) {
-                int shift = (int)str[i] - (int)str[0];
+            for (int i = 1; i < s.length(); ++i) {
+                int shift = s[i] - s[0];
                 if (shift < 0) {
                     shift += 26;
                 }
 
-                hashCode.append(to_string(shift));
-                hashCode.append("#");
+                hashCode += to_string(shift) + "#";
             }
 
-            groups[hashCode].push_back(str);
+            groups[hashCode].push_back(s);
         }
 
-        vector<vector<string> > result;
+        vector<vector<string>> result;
         for (auto group : groups) {
             result.push_back(group.second);
         }
