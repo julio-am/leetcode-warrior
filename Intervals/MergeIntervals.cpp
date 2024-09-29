@@ -1,30 +1,22 @@
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        vector<vector<int>> result;
-    
         sort(intervals.begin(), intervals.end());
 
-        int previousStart = intervals[0][0];
-        int previousEnd = intervals[0][1];
-        for (int i = 0; i < intervals.size(); ++i) {
-            //if the previous interval is before the next one, insert the previous interval;
-            if (previousEnd < intervals[i][0]) {
-                result.push_back({previousStart, previousEnd});
-                previousStart = intervals[i][0];
-                previousEnd = intervals[i][1];
-                continue;
-            }
+        vector<vector<int>> result;
+        for (auto interval : intervals) {
 
-            // if the previous interval ends after the current one starts 
-            else if (previousEnd >= intervals[i][0]) {
-                previousEnd = max(previousEnd, intervals[i][1]);
-                continue;
-            }
+            // if there is no previous interval, or if the last interval ends before the current one starts,
+            // insert the current interval.
+            if (result.empty() || result.back()[1] < interval[0])
+                result.push_back(interval);
+
+            // if there is a conflict of intervals, update the ending of the existing interval to be the 
+            // latest we've seen so far.
+            else 
+                result.back()[1] = max(result.back()[1], interval[1]);
         }
 
-        // insert the last interval
-        result.push_back({previousStart, previousEnd});
         return result;
     }
 };
