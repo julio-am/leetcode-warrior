@@ -1,3 +1,41 @@
+// Advanced solution 
+class Solution {
+
+private:
+    // since we can immediately remove invalid closing parenthesis, leverage this in both directions
+    string removeInvalidCloseString(string& s, char open, char close) {
+        string result;
+        int balance = 0;
+        for (int i = 0; i<s.size(); ++i) {
+            if (s[i] == open) ++balance;
+            if (s[i] == close) {
+                if (balance == 0) continue;
+                --balance;
+            }
+            result.push_back(s[i]);
+        }
+
+        return result;
+    }
+
+public:
+    string minRemoveToMakeValid(string s) {
+        // remove invalid ')' in one forward pass
+        string result = removeInvalidCloseString(s, '(', ')');
+
+        // remove invalid '(' in one backward pass
+        reverse(result.begin(), result.end());
+        result = removeInvalidCloseString(result, ')', '(');
+
+        // put the string back to right direction
+        reverse(result.begin(), result.end());
+        return result;
+    }
+};
+
+///////////////////////////////////////////////////////////////////////////
+
+// Simple solution
 class Solution {
 public:
     string minRemoveToMakeValid(string s) {
