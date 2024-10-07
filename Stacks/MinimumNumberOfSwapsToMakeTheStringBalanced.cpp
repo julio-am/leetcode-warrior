@@ -21,7 +21,7 @@ public:
         for (auto c : s) {
             if (c == '[') ++freeOpens;
 
-            else {
+            if (c == ']') {
                 if (freeOpens) --freeOpens;
                 //else ++offBalance;
             }
