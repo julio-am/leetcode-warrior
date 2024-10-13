@@ -10,16 +10,18 @@ public:
         int r = nums.size()-1;
 
         while (l < r) {
-            int i = (l+r) / 2;
+            int mid = (l+r) / 2;
+            
+            // if we're in the middle of a rising path, keep following it
+            if (nums[mid] < nums[mid+1])
+                l = mid+1;
 
-            if (nums[i] < nums[i+1]) {
-                l = i+1;
-            }
-            else {
-                r = i;
-            }
+            // otherwise, go backwards
+            else
+                r = mid;
         }
 
+        // eventually we will scoot backwards into the left pointer.
         return l;
     }
 };
