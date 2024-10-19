@@ -10,26 +10,17 @@
  * };
  */
 class Solution {
-private:
-    int result;
-
-    void dfs(TreeNode* root, int low, int high) {
-        if (!root) return;
-        int cur = root->val;
-
-        if (cur >= low && cur <= high)
-            result += cur;
-
-        if (cur > low) 
-            dfs(root->left, low, high);
-
-        if (cur < high)
-            dfs(root->right, low, high);
-    }
-
 public:
-    int rangeSumBST(TreeNode* root, int low, int high) {
-        dfs(root, low, high);
-        return result;
+    int rangeSumBST(TreeNode* root, int lo, int hi) {
+        if (!root) return 0;
+
+        int sum = 0;
+        if (root->val < hi) sum += rangeSumBST(root->right, lo, hi);
+        if (root->val > lo) sum += rangeSumBST(root->left,  lo, hi);
+
+        if (root->val >= lo && root->val <= hi) 
+            sum += root->val;
+
+        return sum;
     }
 };
