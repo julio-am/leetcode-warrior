@@ -6,8 +6,7 @@ public:
  
         for (int r = 0; r < s.size(); ++r) {
             char c = s[r];
-            // if this letter has been found before
-            // and the previous instance is in our window,
+            // if this letter has been found before within our window,
             // jump the window to after the instance.
             l = prevs.contains(c) ? max(l, prevs[c]+1) : l;
 
