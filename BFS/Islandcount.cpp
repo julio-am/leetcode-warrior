@@ -99,7 +99,6 @@ private:
             toVisit.pop();
             
             for (auto dir : directions) {
-
                 int newRow = currentNode.row + dir[0];
                 int newCol = currentNode.col + dir[1];
 
@@ -114,8 +113,7 @@ private:
                 }
             }
         }
-
-
+        
     }
 
 };
