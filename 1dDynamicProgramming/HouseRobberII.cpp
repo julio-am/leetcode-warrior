@@ -4,24 +4,26 @@
 
 class Solution {
 private:
-    int robHelper(vector<int>& nums) {
-        int rob1 = 0, rob2 = 0;
+    int helper(vector<int>& nums, int start, int end) {
+        int l = 0, r = 0;
 
-        for (int n : nums) {
-            int current = max(rob2, rob1+n);
-            rob1 = rob2;
-            rob2 = current;
+        for (int i = start; i < end; ++i) {
+            int next = max(r, l + nums[i]);
+            l = r;
+            r = next;
         }
 
-        return rob2;
+        return r;
     }
 
 public:
     int rob(vector<int>& nums) {
         if (nums.size() == 1) return nums[0];
-        
-        vector<int> nums1(nums.begin(), nums.end()-1);
-        vector<int> nums2(nums.begin()+1, nums.end());
-        return max(robHelper(nums1), robHelper(nums2));
+        if (nums.size() == 2) return max(nums[0], nums[1]);
+
+        int l = helper(nums, 0, nums.size()-1);
+        int r = helper(nums, 1, nums.size());
+
+        return max(l,r);
     }
 };
