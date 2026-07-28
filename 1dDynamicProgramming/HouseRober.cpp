@@ -5,14 +5,14 @@
 class Solution {
 public:
     int rob(vector<int>& nums) {
-        int rob1 = 0, rob2 = 0;
-
-        for (auto n : nums) {  
-            int current = max(rob2, n+rob1);
-            rob1 = rob2;
-            rob2 = current;
+        int l = 0, r = 0;
+        
+        for (auto n : nums) {
+            int next = max(r, l + n);
+            l = r;
+            r = next;
         }
 
-        return rob2;
+        return r;
     }
 };
