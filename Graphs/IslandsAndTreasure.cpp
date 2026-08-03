@@ -10,43 +10,50 @@
   
 class Solution {
 
-public:
-    // start at each treasure and use bfs to increment the value 
-    // of each adjacent land tile
-    void islandsAndTreasure(vector<vector<int>>& grid) {
-        if (!grid.size()) return;
+private:
+vector<pair<int,int>> dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}}; 
 
-        vector<vector<int>> result;
+
+public:
+    void wallsAndGates(vector<vector<int>>& grid) {
+        vector<pair<int,int>> dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}}; 
         queue<pair<int,int>> toVisit;
 
-        for (int row = 0; row < grid.size(); ++row) {
-            for (int col = 0; col < grid[0].size(); ++col) {
-                if (grid[row][col] == 0) {
-                    toVisit.push({row,col});
-                }
+        // push every gate to the queue initially
+        int numRows = grid.size();
+        int numCols = numRows == 0 ? 0 : grid[0].size();
+
+        for (int r = 0; r < numRows; ++r) {
+            for (int c = 0; c < numCols; ++c) {
+                if (grid[r][c] == 0) toVisit.push({r,c});
             }
         }
 
-        vector<pair<int,int>> dirs = {{-1,0}, {1,0}, {0,-1}, {0,1}};
+
+        int curDist = 0;
+
         while (!toVisit.empty()) {
-            int currRow = toVisit.front().first;
-            int currCol = toVisit.front().second;
-            toVisit.pop();
+            int queueSize = toVisit.size();
 
-            for (auto dir : dirs) {
-                int newRow = currRow + dir.first;
-                int newCol = currCol + dir.second;
+            for (int i = 0; i < queueSize; ++i) {
+                auto [row, col] = toVisit.front();
+                toVisit.pop();
+                
+                for (auto dir : dirs) {
+                    int newRow = row + dir.first;
+                    int newCol = col + dir.second;
 
-                if (newRow < 0 || newRow >= grid.size() ||
-                    newCol < 0 || newCol >= grid[0].size() ||
-                    grid[newRow][newCol] != INT_MAX) {
-                        continue;
+                    if (newRow >= 0 && newRow < numRows &&
+                        newCol >= 0 && newCol < numCols &&
+                        grid[newRow][newCol] > curDist+1) {
+
+                            grid[newRow][newCol] = curDist+1;
+                            toVisit.push({newRow, newCol});
+                    }
                 }
-
-                grid[newRow][newCol] = 1 + grid[currRow][currCol];
-                toVisit.push({newRow,newCol});
             }
+
+            ++curDist;
         }
-        return;
     }
 };
