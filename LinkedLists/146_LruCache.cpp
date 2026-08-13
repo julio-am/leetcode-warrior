@@ -1,9 +1,9 @@
 class LRUCache {
 private:
 
-list<pair<int,int>> cache_;
-unordered_map<int, list<pair<int,int>>::iterator> mp_;
-int capacity_;
+    list<pair<int,int>> cache_;
+    unordered_map<int, list<pair<int,int>>::iterator> mp_;
+    int capacity_;
 
 public:
     LRUCache(int capacity) : capacity_(capacity){
