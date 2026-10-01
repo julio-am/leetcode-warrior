@@ -8,7 +8,7 @@ public:
             sum -= arr[i-k];
             sum += arr[i];
 
-            result += sum >= threshold*k ? 1: 0;
+            result += sum >= threshold*k ? 1 : 0;
         }
 
         return result;
